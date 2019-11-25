@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  dolibarr:
+    container_name: dolibarr
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    #image: dolibarr:latest
+    ports:
+      - 80:80
+    volumes:
+      - dolibarr_conf:/var/www/html/dolibarr/conf
+      - dolibarr_docs:/var/www/html/dolibarr/documents
+    networks:
+      - dolibarNET
+  db:
+    container_name: db
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    volumes:
+      - mariadb:/var/lib/mysql 
+    networks:
+      - dolibarNET
+networks:
+  dolibarNET:
+volumes:
+  mariadb:
+  dolibarr_conf:
+  dolibarr_docs:

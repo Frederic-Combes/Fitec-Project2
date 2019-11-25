@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: "{{ ansible_become }}"
+  tasks:
+    - shell: swapoff -a
+    - import_role:
+        name: geerlingguy.docker
+      vars:
+        docker_users:
+          - vagrant
+    - import_role:
+        name: geerlingguy.kubernetes
+      vars:
+        kubernetes_apiserver_advertise_address: "192.168.50.200"
+        docker_users:
+          - vagrant
+
+- hosts: kubernetes-master
+  tasks:
+    - name: Copy KUBECTL configuration file
+      shell: "cp /etc/kubernetes/admin.conf {{ home }}/ && sudo chown vagrant:vagrant {{ home }}{{ home }}/admin.conf"
+      vars:
+        home: /home/vagrant
+    - name: Export KUBECONFIG
+      lineinfile:
+        path: "{{ home }}/.bashrc"
+        regexp:
+        line: export KUBECONFIG={{ home }}/admin.conf
+      vars:
+        home: /home/vagrant

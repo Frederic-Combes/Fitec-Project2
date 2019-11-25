@@ -1,0 +1,17 @@
+---
+all:
+  hosts:
+    localhost:
+    server1.infra:
+    server1.infra:
+    server1.infra:
+  children:
+    docker:
+      hosts:
+        localhost:
+        server1.infra:
+        server1.infra:
+        server1.infra:
+    kubernetes-master:
+      hosts:
+        localhost:
