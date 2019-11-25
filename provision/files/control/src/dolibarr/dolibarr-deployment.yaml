@@ -1,14 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert -f docker-compose.yml
-    kompose.version: 1.19.0 ()
+    kompose.version: 1.19.0 (f63a961c)
   creationTimestamp: null
   labels:
     io.kompose.service: dolibarr
   name: dolibarr
 spec:
+  selector:
+    matchLabels:
+      io.kompose.service: dolibarr
   replicas: 1
   strategy:
     type: Recreate
@@ -16,21 +19,22 @@ spec:
     metadata:
       annotations:
         kompose.cmd: kompose convert -f docker-compose.yml
-        kompose.version: 1.19.0 ()
+        kompose.version: 1.19.0 (f63a961c)
       creationTimestamp: null
       labels:
         io.kompose.service: dolibarr
     spec:
       containers:
       - image: dolibarr
+        imagePullPolicy: Never
         name: dolibarr
         ports:
         - containerPort: 80
         resources: {}
         volumeMounts:
-        - mountPath: /var/www/html/dolibarr/conf
+        - mountPath: /var/www/dolibarr/htdocs/conf
           name: dolibarr-conf
-        - mountPath: /var/www/html/dolibarr/documents
+        - mountPath: /var/www/dolibarr/htdocs/documents
           name: dolibarr-docs
       restartPolicy: Always
       volumes:

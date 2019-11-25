@@ -40,25 +40,25 @@ Vagrant.configure("2") do |config|
   end
 
   # Configure cluster nodes server0 ... server3
-  3.times do |id|
-    config.vm.define "server#{id}.infra" do |machine|
-      machine.vm.provider "virtualbox" do |vb|
-        vb.gui = false                                                          # No GUI
-        vb.memory = "1024"                                                      # Give less RAM
-        vb.cpus = 1                                                             # Give less CPU
-      end
-
-      machine.vm.hostname = "server#{id}.infra"
-      machine.vm.network "private_network", ip: "192.168.50.#{100+id}"
-
-      # Provisioning
-      machine.vm.synced_folder ".", "/vagrant", disabled: true                    # Disable default folder syncing
-      machine.vm.synced_folder "provision/files/server", "/provision-files", type: "rsync"  # Sync the contents of sync-master to /provision-files
-
-      # Provisioning
-      machine.vm.provision "shell", path: "provision/scripts/install-base-package.sh"
-      machine.vm.provision "shell", path: "provision/scripts/install-authorize-ssh-key.sh", env: {"KEY_NAME" => "ansible", "USER" => "root"}
-      machine.vm.provision "shell", path: "provision/scripts/install-hosts.sh"
-    end
-  end
+  # 3.times do |id|
+  #   config.vm.define "server#{id}.infra" do |machine|
+  #     machine.vm.provider "virtualbox" do |vb|
+  #       vb.gui = false                                                          # No GUI
+  #       vb.memory = "1024"                                                      # Give less RAM
+  #       vb.cpus = 1                                                             # Give less CPU
+  #     end
+  #
+  #     machine.vm.hostname = "server#{id}.infra"
+  #     machine.vm.network "private_network", ip: "192.168.50.#{100+id}"
+  #
+  #     # Provisioning
+  #     machine.vm.synced_folder ".", "/vagrant", disabled: true                    # Disable default folder syncing
+  #     machine.vm.synced_folder "provision/files/server", "/provision-files", type: "rsync"  # Sync the contents of sync-master to /provision-files
+  #
+  #     # Provisioning
+  #     machine.vm.provision "shell", path: "provision/scripts/install-base-package.sh"
+  #     machine.vm.provision "shell", path: "provision/scripts/install-authorize-ssh-key.sh", env: {"KEY_NAME" => "ansible", "USER" => "root"}
+  #     machine.vm.provision "shell", path: "provision/scripts/install-hosts.sh"
+  #   end
+  # end
 end

@@ -2,16 +2,16 @@
 all:
   hosts:
     localhost:
+    server0.infra:
     server1.infra:
-    server1.infra:
-    server1.infra:
+    server2.infra:
   children:
     docker:
       hosts:
         localhost:
+        server0.infra:
         server1.infra:
-        server1.infra:
-        server1.infra:
+        server2.infra:
     kubernetes-master:
       hosts:
         localhost:

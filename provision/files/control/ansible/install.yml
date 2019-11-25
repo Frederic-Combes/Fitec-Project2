@@ -18,7 +18,7 @@
 - hosts: kubernetes-master
   tasks:
     - name: Copy KUBECTL configuration file
-      shell: "cp /etc/kubernetes/admin.conf {{ home }}/ && sudo chown vagrant:vagrant {{ home }}{{ home }}/admin.conf"
+      shell: "cp /etc/kubernetes/admin.conf {{ home }}/ && sudo chown vagrant:vagrant {{ home }}/admin.conf"
       vars:
         home: /home/vagrant
     - name: Export KUBECONFIG
