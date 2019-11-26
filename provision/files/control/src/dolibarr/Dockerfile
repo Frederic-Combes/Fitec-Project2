@@ -28,8 +28,7 @@ RUN set -eux; \
 		php7-simplexml \
 		php7 \
 		mariadb-client \
-		git \
-	; \
+		git ;
 
 RUN cd /var/www && git clone https://github.com/dolibarr/dolibarr -b 10.0 && chown -R www-data:www-data /var/www
 
