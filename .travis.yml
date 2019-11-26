@@ -5,12 +5,11 @@ services:
 
 before_script:
   - cd provision/files/control/src/dolibarr
-  - make pull
+  # - make pull
 
 script:
   - ls -al
-  - docker build -t dolibarr:latest .
-  # - make build
+  - make build
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
