@@ -4,14 +4,13 @@ services:
   - docker
 
 script:
-  - ls -al
   - cd provision/files/control/src/dolibarr && make build
   - docker tag dolibarr:latest fredericcombes/dolibarr:latest
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       docker login -u $DOCKER_USER -p $DOCKER_PWD ;
-      docker push fredericcombes/dolibarr:latest
+      docker push fredericcombes/dolibarr:latest ;
     fi
 
 notifications:
