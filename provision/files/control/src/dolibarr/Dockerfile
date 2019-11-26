@@ -56,7 +56,11 @@ WORKDIR /var/www/html
 EXPOSE 80/tcp
 
 COPY src/docker-entrypoint /usr/local/bin/
+
 ENTRYPOINT ["docker-entrypoint"]
 
 COPY src/apache2-foreground /usr/local/bin/
+
+RUN ls -al /usr/local/bin
+
 CMD ["apache2-foreground"]
