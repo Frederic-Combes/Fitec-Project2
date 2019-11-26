@@ -1,3 +1,5 @@
+FROM alpine:3.10
+
 RUN set -eux; \
 	# install needed packages
 	# see https://wiki.dolibarr.org/index.php/Dependencies_and_external_libraries
