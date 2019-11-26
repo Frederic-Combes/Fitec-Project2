@@ -8,7 +8,6 @@ before_script:
   # - make pull
 
 script:
-  - ls -al
   - make build
 
 after_success:
