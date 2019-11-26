@@ -25,8 +25,8 @@ spec:
         io.kompose.service: dolibarr
     spec:
       containers:
-      # - image: fredericcombes/dolibarr:latest
-      - image: upshift/dolibarr
+      - image: fredericcombes/dolibarr:latest
+      # - image: upshift/dolibarr
         name: dolibarr
         ports:
         - containerPort: 80

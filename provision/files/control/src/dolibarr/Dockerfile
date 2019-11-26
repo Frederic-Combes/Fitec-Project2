@@ -1,5 +1,7 @@
 FROM alpine:3.10
 
+ENV DOLI_VERSION 10.0.3
+
 RUN set -eux; \
 	# install needed packages
 	# see https://wiki.dolibarr.org/index.php/Dependencies_and_external_libraries
