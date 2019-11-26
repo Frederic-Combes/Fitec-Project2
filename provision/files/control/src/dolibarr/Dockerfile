@@ -30,7 +30,8 @@ RUN set -eux; \
 		mariadb-client \
 		git ;
 
-RUN cd /var/www && git clone https://github.com/dolibarr/dolibarr -b 10.0 && chown -R www-data:www-data /var/www
+RUN cd /var/www && git clone https://github.com/dolibarr/dolibarr -b 10.0
+RUN chown -R apache:root /var/www
 
 COPY dolibarr.conf /etc/apache2/sites-available/dolibarr.conf
 
