@@ -4,16 +4,16 @@ services:
   - docker
 
 before_script:
-  - "docker pull fredericcombes/dolibarr:latest || :"
+  - cd provision/files/control/src/dolibarr
+  - make pull
 
 script:
-  - cd provision/files/control/src/dolibarr && make build
-  - docker tag dolibarr:latest fredericcombes/dolibarr:latest
+  - make build
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       docker login -u $DOCKER_USER -p $DOCKER_PWD ;
-      docker push fredericcombes/dolibarr:latest ;
+      make push ;
     fi
 
 notifications:

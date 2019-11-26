@@ -3,6 +3,13 @@ all:
 build:
 	docker build -t dolibarr:latest .
 
+push:
+	docker tag dolibarr:latest fredericcombes/dolibarr:latest
+	docker push fredericcombes/dolibarr:latest
+
+pull:
+	docker pull fredericcombes/dolibarr:latest || :
+
 apply: apply-pvc apply-deploy apply-svc
 
 apply-pvc:

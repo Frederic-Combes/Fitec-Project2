@@ -3,10 +3,7 @@ version: "3.3"
 services:
   dolibarr:
     container_name: dolibarr
-    image: dolibarr
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: fredericcombes/dolibarr:latest
     ports:
       - "80:80"
     volumes:
