@@ -1,5 +1,5 @@
 # FROM debian:buster-slim
-FROM php:7.3-apache2-slim
+FROM php:7.3-apache
 
 RUN apt update && apt install -qqy \
 	php7.3-mysqli  	\
