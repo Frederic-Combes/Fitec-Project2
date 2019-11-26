@@ -32,5 +32,5 @@ delete: delete-deploy
 	kubectl delete pvc mariadb
 
 delete-deploy:
-	minikube kubectl delete deployment.apps db
-	minikube kubectl delete deployment.apps dolibarr
+	kubectl delete deployment.apps db
+	kubectl delete deployment.apps dolibarr
