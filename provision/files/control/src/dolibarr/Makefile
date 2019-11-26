@@ -19,10 +19,11 @@ apply-pvc:
 
 apply-deploy:
 	kubectl apply -f dolibarr-deployment.yaml
-	kubectl apply -f db-deployment.yaml
+	kubectl apply -f mariadb-deployment.yaml
 
 apply-svc:
 	kubectl apply -f dolibarr-service.yaml
+	kubectl apply -f mariadb-service.yaml
 
 delete: delete-deploy
 	kubectl delete svc dolibarr

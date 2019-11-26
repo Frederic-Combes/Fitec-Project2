@@ -6,12 +6,12 @@ metadata:
     kompose.version: 1.19.0 (f63a961c)
   creationTimestamp: null
   labels:
-    io.kompose.service: db
-  name: db
+    io.kompose.service: mariadb
+  name: mariadb
 spec:
   selector:
     matchLabels:
-      io.kompose.service: db
+      io.kompose.service: mariadb
   replicas: 1
   strategy:
     type: Recreate
@@ -22,7 +22,7 @@ spec:
         kompose.version: 1.19.0 (f63a961c)
       creationTimestamp: null
       labels:
-        io.kompose.service: db
+        io.kompose.service: mariadb
     spec:
       containers:
       - env:
@@ -37,6 +37,8 @@ spec:
         image: mariadb
         name: db
         resources: {}
+        ports:
+          - containerPort: 3306
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: mariadb
