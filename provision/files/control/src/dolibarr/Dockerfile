@@ -55,10 +55,10 @@ WORKDIR /var/www/html
 
 EXPOSE 80/tcp
 
-COPY /src/docker-entrypoint /usr/local/bin/
+COPY /src/docker-entrypoint /usr/local/bin/docker-entrypoint
 ENTRYPOINT ["docker-entrypoint"]
 
-COPY /src/apache2-foreground /usr/local/bin/
+COPY /src/apache2-foreground /usr/local/bin/apache2-foreground
 CMD ["apache2-foreground"]
 
 # FROM debian:buster-slim
