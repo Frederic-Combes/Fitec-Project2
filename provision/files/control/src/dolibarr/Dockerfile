@@ -1,5 +1,7 @@
 FROM alpine:3.10
 
+ENV DOLI_VERSION 10.0.3
+
 RUN set -eux; \
 	# install needed packages
 	# see https://wiki.dolibarr.org/index.php/Dependencies_and_external_libraries
@@ -28,15 +30,33 @@ RUN set -eux; \
 		php7-simplexml \
 		php7 \
 		mariadb-client \
-		git ;
+		postgresql-client \
+		unzip \
+	; \
+	install -d -o apache -g root -m 0750 /var/www/html; \
+	rm -rf /var/www/localhost/htdocs; \
+	ln -s /var/www/html /var/www/localhost/htdocs
 
-RUN cd /var/www && git clone https://github.com/dolibarr/dolibarr -b 10.0
-RUN chown -R apache:root /var/www
+VOLUME /var/www/html
+VOLUME /var/www/documents
 
-COPY dolibarr.conf /etc/apache2/sites-available/dolibarr.conf
+# Get Dolibarr
+ADD https://github.com/Dolibarr/dolibarr/archive/${DOLI_VERSION}.zip /tmp/dolibarr.zip
+#COPY /dolibarr-${DOLI_VERSION}.zip /tmp/dolibarr.zip
+RUN set -eux; \
+	unzip -q /tmp/dolibarr.zip -d /tmp/dolibarr; \
+	rm -f /tmp/dolibarr.zip; \
+	mkdir -p /usr/src/dolibarr; \
+	cp -r /tmp/dolibarr/dolibarr-${DOLI_VERSION}/* /usr/src/dolibarr; \
+	rm -rf /tmp/dolibarr; \
+	chmod +x /usr/src/dolibarr/scripts/*
 
-RUN a2dissite 000-default.conf && a2ensite dolibarr.conf
+WORKDIR /var/www/html
 
-EXPOSE 80
+EXPOSE 80/tcp
 
-CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]
+COPY src/docker-entrypoint /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint"]
+
+COPY src/apache2-foreground /usr/local/bin/
+CMD ["apache2-foreground"]
