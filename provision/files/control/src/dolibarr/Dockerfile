@@ -1,4 +1,4 @@
-# FROM debian:buster-slim
+FROM debian:buster-slim
 
 RUN apt update && apt install -qqy \
 	php7.3  				\
