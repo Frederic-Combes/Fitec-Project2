@@ -1,0 +1,6 @@
+services:
+  - docker
+
+script:
+  - cd provision/files/control/src/dolibarr && make build
+  - docker tag dolibarr:latest fredericcombes/dolibarr:latest
