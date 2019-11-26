@@ -21,6 +21,7 @@ COPY dolibarr.conf /etc/apache2/sites-available/dolibarr.conf
 
 RUN a2dissite 000-default.conf && a2ensite dolibarr.conf
 
+RUN echo "Working?"
 EXPOSE 80
 
 CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]
