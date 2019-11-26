@@ -2,7 +2,7 @@
 FROM php:7.3-apache
 
 RUN apt update && apt install -qqy \
-	php7.3-mysqli  	\
+	php7.3-mysql  	\
 	mariadb-client  \
 	git
 
