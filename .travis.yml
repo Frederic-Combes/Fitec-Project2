@@ -3,6 +3,9 @@ sudo: 'required'
 services:
   - docker
 
+before_script:
+  - "docker pull fredericcombes/dolibarr:latest || :"
+
 script:
   - cd provision/files/control/src/dolibarr && make build
   - docker tag dolibarr:latest fredericcombes/dolibarr:latest
