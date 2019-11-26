@@ -1,7 +1,10 @@
+sudo: 'required'
+
 services:
   - docker
 
 script:
+  - ls -al
   - cd provision/files/control/src/dolibarr && make build
   - docker tag dolibarr:latest fredericcombes/dolibarr:latest
 
@@ -10,3 +13,6 @@ after_success:
       docker login -u $DOCKER_USER -p $DOCKER_PWD ;
       docker push fredericcombes/dolibarr:latest
     fi
+
+notifications:
+  email: false
