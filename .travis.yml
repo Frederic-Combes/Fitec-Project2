@@ -9,7 +9,8 @@ before_script:
 
 script:
   - ls -al
-  - make build
+  - docker build -t dolibarr:latest .
+  # - make build
 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
