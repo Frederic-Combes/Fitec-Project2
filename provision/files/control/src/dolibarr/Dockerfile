@@ -1,10 +1,7 @@
 FROM alpine:3.10
 
-ENV DOLI_VERSION 10.0.3
-
+# Base install, required packages are listed here: https://wiki.dolibarr.org/index.php/Dependencies_and_external_libraries
 RUN set -eux; \
-	# install needed packages
-	# see https://wiki.dolibarr.org/index.php/Dependencies_and_external_libraries
 	apk add --no-cache \
 		bash \
 		openssl \
@@ -40,8 +37,11 @@ RUN set -eux; \
 VOLUME /var/www/html
 VOLUME /var/www/documents
 
+ENV DOLI_VERSION 10.0.3
+
 # Get Dolibarr
 ADD https://github.com/Dolibarr/dolibarr/archive/${DOLI_VERSION}.zip /tmp/dolibarr.zip
+
 #COPY /dolibarr-${DOLI_VERSION}.zip /tmp/dolibarr.zip
 RUN set -eux; \
 	unzip -q /tmp/dolibarr.zip -d /tmp/dolibarr; \
@@ -55,12 +55,12 @@ WORKDIR /var/www/html
 
 EXPOSE 80/tcp
 
-COPY src/docker-entrypoint /usr/local/bin/
+COPY src/docker-entrypoint /usr/local/bin
+COPY src/apache2-foreground /usr/local/bin
+RUN chmod a+x /usr/local/bin/*
 
 ENTRYPOINT ["docker-entrypoint"]
 
-COPY src/apache2-foreground /usr/local/bin/
-
-RUN ls -al /usr/local/bin
+ENV DOLI_URL_ROOT "http://localhost"
 
 CMD ["apache2-foreground"]
