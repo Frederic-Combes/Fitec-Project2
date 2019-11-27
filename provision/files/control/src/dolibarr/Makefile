@@ -32,5 +32,5 @@ delete: delete-deploy
 	kubectl delete pvc mariadb
 
 delete-deploy:
-	kubectl delete deployment.apps db
+	kubectl delete deployment.apps mariadb
 	kubectl delete deployment.apps dolibarr
