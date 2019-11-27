@@ -38,7 +38,7 @@ kubectl port-forward deployment/dolibar 80
 ```
 If the port 80 is already in use, use
 ```bash
-kubectl port-forward deployment/dolibar 12345:80
+kubectl port-forward deployment/dolibarr 12345:80
 ```
 
 Enjoy!
